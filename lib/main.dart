@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:socket_io_test/features/chat/ui/chat.dart';
 import 'package:socket_io_test/locator.dart';
-
-import 'features/lobby/ui/lobby.dart';
 
 void main() {
   setup();
@@ -16,7 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.grey),
-      home: Lobby(),
+      // home: Lobby(),
+      home: Chat(
+        name: 'Jay',
+        phone: "7030356059",
+      ),
     );
   }
 }

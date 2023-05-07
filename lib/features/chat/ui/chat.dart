@@ -26,19 +26,22 @@ class _ChatState extends State<Chat> {
         children: [
           Expanded(
             child: Container(
-                // child: ListView.builder(
-                //   itemBuilder: ((context, index) {
-                //     return Row(
-                //       children: [
-                //         Container(
-                //             // decoration: BoxDecoration(
-                //             //     borderRadius: BorderRadius.circular(size * 0.01)),
-                //             )
-                //       ],
-                //     );
-                //   }),
-                // ),
-                ),
+              child: ListView.builder(
+                itemBuilder: ((context, index) {
+                  return Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            size.width * 0.1,
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                }),
+              ),
+            ),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),

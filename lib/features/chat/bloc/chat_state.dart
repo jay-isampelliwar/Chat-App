@@ -1,6 +1,10 @@
 part of 'chat_bloc.dart';
 
-@immutable
-abstract class ChatState {}
+abstract class ChatState extends Equatable {
+  const ChatState();
+  
+  @override
+  List<Object> get props => [];
+}
 
 class ChatInitial extends ChatState {}

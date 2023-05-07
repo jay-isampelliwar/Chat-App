@@ -1,6 +1,10 @@
 part of 'lobby_bloc.dart';
 
-@immutable
-abstract class LobbyState {}
+abstract class LobbyState extends Equatable {
+  const LobbyState();
+  
+  @override
+  List<Object> get props => [];
+}
 
 class LobbyInitial extends LobbyState {}

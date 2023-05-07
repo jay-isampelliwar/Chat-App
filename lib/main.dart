@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:socket_io_test/locator.dart';
 
 import 'features/lobby/ui/lobby.dart';
 
 void main() {
+  setup();
   runApp(const MyApp());
 }
 

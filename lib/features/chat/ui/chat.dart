@@ -14,6 +14,10 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
+  final TextEditingController _textEditingController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+
+  bool flag = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -21,21 +25,94 @@ class _ChatState extends State<Chat> {
       appBar: AppBar(
         backgroundColor: Colors.grey.shade200,
         elevation: 0,
+        centerTitle: true,
+        title: Text(
+          "Group Chat",
+          style: AppTextStyles.text24(bold: true, size: size),
+        ),
       ),
       body: Column(
         children: [
           Expanded(
             child: Container(
               child: ListView.builder(
+                controller: _scrollController,
+                itemCount: messages.length,
                 itemBuilder: ((context, index) {
+                  Message cur = messages[index];
+                  String message = cur.message;
+                  bool isMe = cur.isMe;
+                  DateTime date = cur.date;
                   return Row(
+                    mainAxisAlignment:
+                        isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            size.width * 0.1,
-                          ),
-                        ),
+                      Flexible(
+                        child: cur.join
+                            ? Center(
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size.width * 0.2,
+                                      vertical: size.height * 0.01),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * 0.03,
+                                      vertical: size.height * 0.01),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green.shade200,
+                                    borderRadius: BorderRadius.circular(
+                                      size.width * 0.01,
+                                    ),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: AppColor.primary,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "${cur.username} Join the chat",
+                                    style: AppTextStyles.text16(
+                                      bold: false,
+                                      size: size,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                margin: isMe
+                                    ? EdgeInsets.only(
+                                        left: size.width * 0.25,
+                                        right: size.width * 0.02,
+                                        bottom: size.height * 0.01,
+                                      )
+                                    : EdgeInsets.only(
+                                        right: size.width * 0.25,
+                                        left: size.width * 0.02,
+                                        bottom: size.height * 0.01,
+                                      ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * 0.04,
+                                    vertical: size.height * 0.01),
+                                decoration: BoxDecoration(
+                                    color: isMe
+                                        ? AppColor.primary
+                                        : AppColor.secondary,
+                                    borderRadius: BorderRadius.circular(
+                                      size.width * 0.03,
+                                    ),
+                                    border: Border.all(
+                                        width: 1, color: AppColor.primary)),
+                                child: Text(
+                                  message,
+                                  textAlign:
+                                      isMe ? TextAlign.end : TextAlign.start,
+                                  style: AppTextStyles.text16(
+                                          bold: false, size: size)
+                                      .copyWith(
+                                    color: isMe
+                                        ? AppColor.secondary
+                                        : AppColor.primary,
+                                  ),
+                                ),
+                              ),
                       )
                     ],
                   );
@@ -55,6 +132,7 @@ class _ChatState extends State<Chat> {
             ),
             child: Align(
               child: TextFormField(
+                controller: _textEditingController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(
                     borderSide: BorderSide.none,
@@ -70,7 +148,23 @@ class _ChatState extends State<Chat> {
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          messages.add(Message(
+                              date: DateTime.now(),
+                              message: _textEditingController.text,
+                              isMe: flag ? true : false));
+                          flag = !flag;
+                        });
+                        _textEditingController.clear();
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          _scrollController.animateTo(
+                            _scrollController.position.maxScrollExtent,
+                            duration: const Duration(milliseconds: 100),
+                            curve: Curves.easeOut,
+                          );
+                        });
+                      },
                       icon: Icon(
                         Icons.send,
                         color: AppColor.secondary,
@@ -114,6 +208,12 @@ List<Message> messages = [
     date: DateTime.now(),
   ),
   Message(
+      message: "",
+      date: DateTime.now(),
+      isMe: false,
+      join: true,
+      username: "Jay"),
+  Message(
     message: "Just working, mostly. How about you?",
     isMe: false,
     date: DateTime.now(),
@@ -126,6 +226,147 @@ List<Message> messages = [
   Message(
     message: "Well, it sounds like you're doing a good job of that!",
     isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+      message: "Rohan Join",
+      date: DateTime.now(),
+      isMe: false,
+      join: true,
+      username: "Preeti"),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+      message: "Rohan Join",
+      date: DateTime.now(),
+      isMe: false,
+      join: true,
+      username: "Bhagyesh"),
+  Message(
+      message: "Rohan Join",
+      date: DateTime.now(),
+      isMe: false,
+      join: true,
+      username: "Gouri"),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+      message: "Rohan Join",
+      date: DateTime.now(),
+      isMe: false,
+      join: true,
+      username: "Donal Sir"),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+      message: "Rohan Join",
+      date: DateTime.now(),
+      isMe: false,
+      join: true,
+      username: "HOD sir"),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+    message:
+        "Globle will test your knowledge of geography. The goal of the game is to find the mystery country on the world map. After each guess, you will see on the map the country you have chosen and the hotter the color, the closer you are to the hidden country.?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Just working, mostly. How about you?",
+    isMe: false,
+    date: DateTime.now(),
+  ),
+  Message(
+    message: "Same here, just trying to stay busy.",
+    isMe: true,
     date: DateTime.now(),
   ),
 ];

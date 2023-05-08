@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 
 class AppConstSizedBox {
-  static SizedBox height(double vlaue) {
+  static SizedBox height(double value) {
     return SizedBox(
-      height: vlaue,
+      height: value,
     );
   }
 
-  static SizedBox width(double vlaue) {
+  static SizedBox width(double value) {
     return SizedBox(
-      width: vlaue,
+      width: value,
     );
   }
 }

@@ -31,10 +31,14 @@ class Helper {
   }
 
   static String getTime(DateTime date) {
-    String min = date.minute.toString();
+    String min = date.minute >= 0 && date.minute <= 9
+        ? "0${date.minute.toString()}"
+        : date.minute.toString();
     int hour = date.hour;
     String suffix = hour >= 12 && hour <= 23 ? "PM" : "AM";
+    String hours =
+        hour >= 0 && hour <= 9 ? "0${hour.toString()}" : hour.toString();
 
-    return "${hour.toString()}:$min $suffix";
+    return "$hours :$min $suffix";
   }
 }

@@ -52,42 +52,54 @@ class _ChatState extends State<Chat> {
                         child: cur.join
                             ? Center(
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: size.width * 0.2,
-                                      vertical: size.height * 0.01),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: size.width * 0.03,
-                                      vertical: size.height * 0.01),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green.shade200,
-                                    borderRadius: BorderRadius.circular(
-                                      size.width * 0.01,
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.2,
+                                        vertical: size.height * 0.01),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.03,
+                                        vertical: size.height * 0.006),
+                                    decoration: BoxDecoration(
+                                      color: Colors.green.shade200,
+                                      borderRadius: BorderRadius.circular(
+                                        size.width * 0.01,
+                                      ),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: AppColor.primary,
+                                      ),
                                     ),
-                                    border: Border.all(
-                                      width: 1,
-                                      color: AppColor.primary,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "${cur.username} Join the chat",
-                                    style: AppTextStyles.text16(
-                                      bold: false,
-                                      size: size,
-                                    ),
-                                  ),
-                                ),
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: cur.username,
+                                            style: AppTextStyles.text16(
+                                              bold: true,
+                                              size: size,
+                                            ).copyWith(color: AppColor.primary),
+                                          ),
+                                          TextSpan(
+                                            text: " join the chat",
+                                            style: AppTextStyles.text16(
+                                              bold: false,
+                                              size: size,
+                                            ).copyWith(color: AppColor.primary),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
                               )
                             : Container(
                                 margin: isMe
                                     ? EdgeInsets.only(
                                         left: size.width * 0.25,
                                         right: size.width * 0.02,
-                                        bottom: size.height * 0.01,
+                                        bottom: size.height * 0.006,
                                       )
                                     : EdgeInsets.only(
                                         right: size.width * 0.25,
                                         left: size.width * 0.02,
-                                        bottom: size.height * 0.01,
+                                        bottom: size.height * 0.006,
                                       ),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * 0.04,
@@ -102,22 +114,34 @@ class _ChatState extends State<Chat> {
                                     border: Border.all(
                                         width: 1, color: AppColor.primary)),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
-                                      message,
-                                      textAlign: isMe
-                                          ? TextAlign.end
-                                          : TextAlign.start,
-                                      style: AppTextStyles.text16(
-                                              bold: false, size: size)
-                                          .copyWith(
-                                        color: isMe
-                                            ? AppColor.secondary
-                                            : AppColor.primary,
-                                      ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        !isMe
+                                            ? Text(
+                                                cur.username,
+                                                style: AppTextStyles.text16(
+                                                    bold: true, size: size),
+                                              )
+                                            : const SizedBox(),
+                                        Text(
+                                          message,
+                                          style: AppTextStyles.text16(
+                                                  bold: false, size: size)
+                                              .copyWith(
+                                            color: isMe
+                                                ? AppColor.secondary
+                                                : AppColor.primary,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Text(
                                           Helper.getTime(cur.date),
@@ -127,7 +151,7 @@ class _ChatState extends State<Chat> {
                                                   color: isMe
                                                       ? AppColor.secondary
                                                       : AppColor.primary),
-                                        )
+                                        ),
                                       ],
                                     )
                                   ],
@@ -173,7 +197,8 @@ class _ChatState extends State<Chat> {
                           messages.add(Message(
                               date: DateTime.now(),
                               message: _textEditingController.text,
-                              isMe: flag ? true : false));
+                              isMe: flag ? true : false,
+                              username: "Jay"));
                           flag = !flag;
                         });
                         _textEditingController.clear();
@@ -203,30 +228,30 @@ class _ChatState extends State<Chat> {
 
 List<Message> messages = [
   Message(
-    message: "Hey there!",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Hey there!",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Hi back!",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Hi back!",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Bunty"),
   Message(
-    message: "How are you?",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "How are you?",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "I'm doing well, thanks for asking!",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "I'm doing well, thanks for asking!",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "What have you been up to lately?",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "What have you been up to lately?",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
       message: "",
       date: DateTime.now(),
@@ -234,66 +259,66 @@ List<Message> messages = [
       join: true,
       username: "Jay"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Well, it sounds like you're doing a good job of that!",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Well, it sounds like you're doing a good job of that!",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
       message: "Rohan Join",
       date: DateTime.now(),
       isMe: false,
       join: true,
-      username: "Preeti"),
+      username: "Rohan"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
       message: "Rohan Join",
       date: DateTime.now(),
@@ -307,35 +332,35 @@ List<Message> messages = [
       join: true,
       username: "Gouri"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
       message: "Rohan Join",
       date: DateTime.now(),
@@ -343,20 +368,20 @@ List<Message> messages = [
       join: true,
       username: "Donal Sir"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
       message: "Rohan Join",
       date: DateTime.now(),
@@ -364,29 +389,29 @@ List<Message> messages = [
       join: true,
       username: "HOD sir"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message:
-        "Globle will test your knowledge of geography. The goal of the game is to find the mystery country on the world map. After each guess, you will see on the map the country you have chosen and the hotter the color, the closer you are to the hidden country.?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message:
+          "Globle will test your knowledge of geography. The goal of the game is to find the mystery country on the world map. After each guess, you will see on the map the country you have chosen and the hotter the color, the closer you are to the hidden country.?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Just working, mostly. How about you?",
-    isMe: false,
-    date: DateTime.now(),
-  ),
+      message: "Just working, mostly. How about you?",
+      isMe: false,
+      date: DateTime.now(),
+      username: "Rohit"),
   Message(
-    message: "Same here, just trying to stay busy.",
-    isMe: true,
-    date: DateTime.now(),
-  ),
+      message: "Same here, just trying to stay busy.",
+      isMe: true,
+      date: DateTime.now(),
+      username: "Rohit"),
 ];

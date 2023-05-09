@@ -29,4 +29,12 @@ class Helper {
     // If all checks pass, the name is valid
     return null;
   }
+
+  static String getTime(DateTime date) {
+    String min = date.minute.toString();
+    int hour = date.hour;
+    String suffix = hour >= 12 && hour <= 23 ? "PM" : "AM";
+
+    return "${hour.toString()}:$min $suffix";
+  }
 }

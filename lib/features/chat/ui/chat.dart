@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:socket_io_test/core/constant/app_color.dart';
 import 'package:socket_io_test/core/constant/app_text_styles.dart';
 
+import '../../../core/constant/app_helper.dart';
 import '../model/message_model.dart';
 
 class Chat extends StatefulWidget {
@@ -100,17 +101,36 @@ class _ChatState extends State<Chat> {
                                     ),
                                     border: Border.all(
                                         width: 1, color: AppColor.primary)),
-                                child: Text(
-                                  message,
-                                  textAlign:
-                                      isMe ? TextAlign.end : TextAlign.start,
-                                  style: AppTextStyles.text16(
-                                          bold: false, size: size)
-                                      .copyWith(
-                                    color: isMe
-                                        ? AppColor.secondary
-                                        : AppColor.primary,
-                                  ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      message,
+                                      textAlign: isMe
+                                          ? TextAlign.end
+                                          : TextAlign.start,
+                                      style: AppTextStyles.text16(
+                                              bold: false, size: size)
+                                          .copyWith(
+                                        color: isMe
+                                            ? AppColor.secondary
+                                            : AppColor.primary,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          Helper.getTime(cur.date),
+                                          style: AppTextStyles.text12(
+                                                  bold: false, size: size)
+                                              .copyWith(
+                                                  color: isMe
+                                                      ? AppColor.secondary
+                                                      : AppColor.primary),
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
                               ),
                       )

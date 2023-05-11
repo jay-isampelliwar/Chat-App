@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:socket_io_test/core/constant/app_color.dart';
 import 'package:socket_io_test/core/constant/app_text_styles.dart';
-
+import 'package:socket_io_test/features/chat/bloc/chat_bloc.dart';
+import 'package:socket_io_test/locator.dart';
 import '../../../core/constant/app_helper.dart';
 import '../model/message_model.dart';
 
@@ -17,6 +18,20 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    locator.get<ChatBloc>().add(InitialChatSocketIOConnectionEvent());
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   bool flag = false;
   @override

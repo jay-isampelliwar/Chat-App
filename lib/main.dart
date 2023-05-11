@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:socket_io_test/features/chat/ui/chat.dart';
+import 'package:provider/provider.dart';
+import 'package:socket_io_test/features/chat/provider/message.dart';
 import 'package:socket_io_test/locator.dart';
+
+import 'features/lobby/ui/lobby.dart';
 
 void main() {
   setup();
@@ -12,13 +15,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.grey),
-      // home: Lobby(),
-      home: Chat(
-        name: 'Jay',
-        phone: "7030356059",
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => MessageProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(primarySwatch: Colors.grey),
+        home: Lobby(),
       ),
     );
   }

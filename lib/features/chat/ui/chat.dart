@@ -42,12 +42,14 @@ class _ChatState extends State<Chat> {
       String jsonString = jsonEncode(data);
       Map<String, dynamic> map = jsonDecode(jsonString);
       Provider.of<MessageProvider>(context, listen: false).addMessage(map);
+      scrollToBottom();
     });
 
     _socket.on("newUserJoin", (data) {
       String jsonString = jsonEncode(data);
       Map<String, dynamic> map = jsonDecode(jsonString);
       Provider.of<MessageProvider>(context, listen: false).addMessage(map);
+      scrollToBottom();
     });
   }
 
@@ -62,6 +64,18 @@ class _ChatState extends State<Chat> {
   void joinUser() {
     _socket.emit("newUserJoin", {
       "username": widget.name,
+    });
+  }
+
+  void scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 50), () {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 100),
+          curve: Curves.easeOut,
+        );
+      });
     });
   }
 
@@ -262,13 +276,6 @@ class _ChatState extends State<Chat> {
                           onPressed: () {
                             sendMessage(_textEditingController.text.trim());
                             _textEditingController.clear();
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              _scrollController.animateTo(
-                                _scrollController.position.maxScrollExtent,
-                                duration: const Duration(milliseconds: 100),
-                                curve: Curves.easeOut,
-                              );
-                            });
                           },
                           icon: Icon(
                             Icons.send,

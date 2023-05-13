@@ -21,7 +21,7 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
-  final IO.Socket _socket = IO.io("http://192.168.1.16:3000",
+  final IO.Socket _socket = IO.io("http://192.168.1.20:3000",
       IO.OptionBuilder().setTransports(['websocket']).build());
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -149,7 +149,10 @@ class _ChatState extends State<Chat> {
                                           text: TextSpan(
                                             children: [
                                               TextSpan(
-                                                text: cur.username,
+                                                text:
+                                                    cur.username == widget.name
+                                                        ? "You"
+                                                        : cur.username,
                                                 style: AppTextStyles.text16(
                                                   bold: true,
                                                   size: size,

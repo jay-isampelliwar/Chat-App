@@ -35,8 +35,6 @@ class _ChatState extends State<Chat> {
     });
     _socket.onDisconnect((data) {
       log("Disconnected");
-      // _socket.emit("leaveChat");
-      // Provider.of<MessageProvider>(context).disconnectUser();
     });
     _socket.on("message", (data) {
       String jsonString = jsonEncode(data);

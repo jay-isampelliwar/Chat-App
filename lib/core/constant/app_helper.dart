@@ -39,6 +39,6 @@ class Helper {
     String hours =
         hour >= 0 && hour <= 9 ? "0${hour.toString()}" : hour.toString();
 
-    return "$hours :$min $suffix";
+    return "$hours:$min $suffix";
   }
 }

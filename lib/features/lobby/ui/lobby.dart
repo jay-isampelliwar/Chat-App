@@ -34,6 +34,7 @@ class Lobby extends StatelessWidget {
         }
       },
       child: Scaffold(
+        backgroundColor: AppColor.backgroundColor,
         body: Center(
           child: SingleChildScrollView(
             child: Padding(
@@ -48,6 +49,7 @@ class Lobby extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
+                          cursorColor: AppColor.userMessageCardColor,
                           controller: nameTextEditingController,
                           decoration: InputDecoration(
                             border: textFieldBorder(size),
@@ -56,14 +58,17 @@ class Lobby extends StatelessWidget {
                               "Name",
                               style:
                                   AppTextStyles.text18(bold: false, size: size)
-                                      .copyWith(color: AppColor.primary),
+                                      .copyWith(
+                                          color: AppColor.userMessageCardColor),
                             ),
                           ),
                           validator: (value) => Helper.isValidName(value!),
                         ),
                         AppConstSizedBox.height(size.height * 0.03),
                         TextFormField(
+                          cursorColor: AppColor.userMessageCardColor,
                           controller: phoneTextEditingController,
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             border: textFieldBorder(size),
                             focusedBorder: textFieldBorder(size),
@@ -71,7 +76,8 @@ class Lobby extends StatelessWidget {
                               "Phone Number",
                               style:
                                   AppTextStyles.text18(bold: false, size: size)
-                                      .copyWith(color: AppColor.primary),
+                                      .copyWith(
+                                          color: AppColor.userMessageCardColor),
                             ),
                           ),
                           validator: (value) =>
@@ -91,7 +97,7 @@ class Lobby extends StatelessWidget {
                           child: Container(
                             height: size.height * 0.07,
                             decoration: BoxDecoration(
-                              color: AppColor.primary,
+                              color: AppColor.friendMessageCardColor,
                               borderRadius:
                                   BorderRadius.circular(size.width * 0.03),
                             ),
@@ -101,7 +107,7 @@ class Lobby extends StatelessWidget {
                                 style:
                                     AppTextStyles.text22(bold: true, size: size)
                                         .copyWith(
-                                  color: AppColor.secondary,
+                                  color: AppColor.userMessageColor,
                                 ),
                               ),
                             ),
@@ -122,7 +128,7 @@ class Lobby extends StatelessWidget {
   OutlineInputBorder textFieldBorder(Size size) {
     return OutlineInputBorder(
         borderSide: BorderSide(
-          color: AppColor.primary,
+          color: AppColor.friendMessageCardColor,
           width: 1,
           style: BorderStyle.solid,
         ),

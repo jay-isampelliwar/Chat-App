@@ -17,12 +17,24 @@ class MessageProvider extends ChangeNotifier {
         message: "",
         date: DateTime.now(),
         join: true,
+        isLeave: false,
         username: map["data"]["username"],
       );
+      numberOfActiveUser = map["length"];
+    } else if (map["isLeave"]) {
+      newMessage = Message(
+        message: "",
+        date: DateTime.now(),
+        join: false,
+        isLeave: true,
+        username: map["data"]["username"],
+      );
+      numberOfActiveUser = map["length"];
     } else {
       newMessage = Message(
           message: map["data"]["message"],
           date: DateTime.parse(map["data"]["date"]),
+          isLeave: false,
           username: map["data"]["username"]);
     }
     _messages.add(newMessage);

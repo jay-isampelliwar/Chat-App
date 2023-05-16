@@ -13,9 +13,8 @@ class LobbyInitial extends LobbyState {}
 
 class LobbyChatNavigatorActionState extends LobbyActonState {
   String name;
-  String phone;
+
   LobbyChatNavigatorActionState({
     required this.name,
-    required this.phone,
   });
 }

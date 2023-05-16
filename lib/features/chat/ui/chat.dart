@@ -14,10 +14,8 @@ import '../../../core/constant/app_helper.dart';
 import '../model/message_model.dart';
 
 class Chat extends StatefulWidget {
-  Chat({required this.name, required this.phone, super.key});
+  Chat({required this.name, super.key});
   String name;
-  String phone;
-
   @override
   State<Chat> createState() => _ChatState();
 }

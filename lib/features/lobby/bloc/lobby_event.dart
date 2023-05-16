@@ -9,12 +9,11 @@ abstract class LobbyEvent extends Equatable {
 
 class LobbyChatNavigatorActionEvent extends LobbyEvent {
   String name;
-  String phone;
+
   LobbyChatNavigatorActionEvent({
     required this.name,
-    required this.phone,
   });
 
   @override
-  List<Object> get props => [name, phone];
+  List<Object> get props => [name];
 }

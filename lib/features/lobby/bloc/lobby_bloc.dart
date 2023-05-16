@@ -13,6 +13,6 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
 
   FutureOr<void> lobbyChatNavigatorActionEvent(
       LobbyChatNavigatorActionEvent event, Emitter<LobbyState> emit) {
-    emit(LobbyChatNavigatorActionState(phone: event.phone, name: event.name));
+    emit(LobbyChatNavigatorActionState(name: event.name));
   }
 }

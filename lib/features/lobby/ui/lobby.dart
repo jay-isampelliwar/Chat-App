@@ -14,7 +14,6 @@ class Lobby extends StatelessWidget {
 
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController nameTextEditingController = TextEditingController();
-  TextEditingController phoneTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -27,7 +26,6 @@ class Lobby extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => Chat(
                 name: state.name,
-                phone: state.phone,
               ),
             ),
           );
@@ -64,33 +62,14 @@ class Lobby extends StatelessWidget {
                           ),
                           validator: (value) => Helper.isValidName(value!),
                         ),
-                        AppConstSizedBox.height(size.height * 0.03),
-                        TextFormField(
-                          cursorColor: AppColor.userMessageCardColor,
-                          controller: phoneTextEditingController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            border: textFieldBorder(size),
-                            focusedBorder: textFieldBorder(size),
-                            label: Text(
-                              "Phone Number",
-                              style:
-                                  AppTextStyles.text18(bold: false, size: size)
-                                      .copyWith(
-                                          color: AppColor.userMessageCardColor),
-                            ),
-                          ),
-                          validator: (value) =>
-                              Helper.isValidPhoneNumber(value!),
-                        ),
                         AppConstSizedBox.height(size.height * 0.04),
                         GestureDetector(
                           onTap: () {
                             if (_key.currentState!.validate()) {
                               locator.get<LobbyBloc>().add(
                                     LobbyChatNavigatorActionEvent(
-                                        name: nameTextEditingController.text,
-                                        phone: phoneTextEditingController.text),
+                                      name: nameTextEditingController.text,
+                                    ),
                                   );
                             }
                           },

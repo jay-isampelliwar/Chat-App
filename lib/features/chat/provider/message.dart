@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 
 import '../model/message_model.dart';
@@ -10,7 +8,6 @@ class MessageProvider extends ChangeNotifier {
   List<Message> get messages => _messages;
 
   void addMessage(Map<String, dynamic> map) {
-    log(map.toString());
     Message? newMessage;
     if (map["isJoin"]) {
       newMessage = Message(

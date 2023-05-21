@@ -21,7 +21,7 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> with WidgetsBindingObserver {
-  final IO.Socket _socket = IO.io("http://192.168.1.7:3000",
+  final IO.Socket _socket = IO.io("http://192.168.1.9:3000",
       IO.OptionBuilder().setTransports(['websocket']).build());
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();

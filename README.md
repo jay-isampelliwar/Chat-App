@@ -40,3 +40,7 @@ $ ipconfig
 Make sure your two phone and the server device are connected to same wifi network
 
 [Screen Recording](https://youtu.be/m9AK0LHaqYQ)
+
+## Screenshot
+
+![chatSUp](https://github.com/jay-isampelliwar/flutter_chat_app/assets/65752549/cd89b9f5-210f-4a72-8f9a-0354148e7af8)
